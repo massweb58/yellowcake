@@ -14,83 +14,83 @@ export class Navigation extends Component {
   }
 
   componentDidMount = () =>
-    this.setState({ currentPath: this.props.location.pathname })
+    this.setState( { currentPath: this.props.location.pathname } )
 
-  handleMenuToggle = () => this.setState({ active: !this.state.active })
+  handleMenuToggle = () => this.setState( { active: !this.state.active } )
 
   // Only close nav if it is open
   handleLinkClick = () => this.state.active && this.handleMenuToggle()
 
   toggleSubNav = subNav =>
-    this.setState({
+    this.setState( {
       activeSubNav: this.state.activeSubNav === subNav ? false : subNav
-    })
+    } )
 
-  render() {
+  render () {
     const { active } = this.state,
       { subNav } = this.props,
-      NavLink = ({ to, className, children, ...props }) => (
+      NavLink = ( { to, className, children, ...props } ) => (
         <Link
-          to={to}
-          className={`NavLink ${
+          to={ to }
+          className={ `NavLink ${
             to === this.state.currentPath ? 'active' : ''
-          } ${className}`}
-          onClick={this.handleLinkClick}
-          {...props}
+            } ${ className }` }
+          onClick={ this.handleLinkClick }
+          { ...props }
         >
-          {children}
+          { children }
         </Link>
       )
 
     return (
-      <nav className={`Nav ${active ? 'Nav-active' : ''}`}>
+      <nav className={ `Nav ${ active ? 'Nav-active' : '' }` }>
         <div className="Nav--Container container">
-          <Link to="/" onClick={this.handleLinkClick}>
+          <Link to="/" onClick={ this.handleLinkClick }>
             <Logo />
           </Link>
           <div className="Nav--Links">
             <NavLink to="/">Accueil</NavLink>
-            {/*<NavLink to="/components/">Components</NavLink>
+            <NavLink to="/components/">Components</NavLink>
             <div
-              className={`Nav--Group ${
+              className={ `Nav--Group ${
                 this.state.activeSubNav === 'posts' ? 'active' : ''
-              }`}
+                }` }
             >
               <span
-                className={`NavLink Nav--GroupParent ${
-                  this.props.location.pathname.includes('posts') ||
-                  this.props.location.pathname.includes('blog') ||
-                  this.props.location.pathname.includes('post-categories')
+                className={ `NavLink Nav--GroupParent ${
+                  this.props.location.pathname.includes( 'posts' ) ||
+                    this.props.location.pathname.includes( 'blog' ) ||
+                    this.props.location.pathname.includes( 'post-categories' )
                     ? 'active'
                     : ''
-                }`}
-                onClick={() => this.toggleSubNav('posts')}
+                  }` }
+                onClick={ () => this.toggleSubNav( 'posts' ) }
               >
                 Blog
                 <div className="Nav--GroupLinks">
                   <NavLink to="/blog/" className="Nav--GroupLink">
                     All Posts
                   </NavLink>
-                  {subNav.posts.map((link, index) => (
+                  { subNav.posts.map( ( link, index ) => (
                     <NavLink
-                      to={link.slug}
-                      key={'posts-subnav-link-' + index}
+                      to={ link.slug }
+                      key={ 'posts-subnav-link-' + index }
                       className="Nav--GroupLink"
                     >
-                      {link.title}
+                      { link.title }
                     </NavLink>
-                  ))}
+                  ) ) }
                 </div>
               </span>
             </div>
-                  <NavLink to="/default/">Default</NavLink>*/}
+            <NavLink to="/default/">Default</NavLink>
             <NavLink to="/contact/">Contactez-nous</NavLink>
           </div>
           <button
             className="Button-blank Nav--MenuButton"
-            onClick={this.handleMenuToggle}
+            onClick={ this.handleMenuToggle }
           >
-            {active ? <X /> : <Menu />}
+            { active ? <X /> : <Menu /> }
           </button>
         </div>
       </nav>
@@ -98,6 +98,6 @@ export class Navigation extends Component {
   }
 }
 
-export default ({ subNav }) => (
-  <Location>{route => <Navigation subNav={subNav} {...route} />}</Location>
+export default ( { subNav } ) => (
+  <Location>{ route => <Navigation subNav={ subNav } { ...route } /> }</Location>
 )
